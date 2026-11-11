@@ -1,8 +1,7 @@
-
 services:
   - type: web
     name: century-engine-bot
     env: node
     plan: free
-    buildCommand: npm install && npx playwright install chromium
+    buildCommand: npm install && PLAYWRIGHT_BROWSERS_PATH=0 npx playwright install chromium
     startCommand: node ultimate-master-engine.js
