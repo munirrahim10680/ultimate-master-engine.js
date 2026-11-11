@@ -1,6 +1,6 @@
 
 services:
-  - type: web
+  - type: worker
     name: century-engine-bot
     env: node
     plan: free
