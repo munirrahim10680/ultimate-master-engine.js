@@ -1,14 +1,13 @@
 {
-  "name": "century-engine",
+  "name": "ultimate-master-engine",
   "version": "1.0.0",
-  "description": "Level 16 Century-Proof Automation Engine",
+  "description": "Facebook video view bot automation",
   "main": "ultimate-master-engine.js",
   "scripts": {
-    "start": "node ultimate-master-engine.js"
+    "start": "node ultimate-master-engine.js",
+    "postinstall": "npx playwright install"
   },
   "dependencies": {
-    "playwright": "^1.42.0",
-    "playwright-extra": "^4.3.6",
-    "puppeteer-extra-plugin-stealth": "^2.11.2"
+    "playwright": "^1.40.0"
   }
 }
