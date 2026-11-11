@@ -4,5 +4,5 @@ services:
     name: century-engine-bot
     env: node
     plan: free
-    buildCommand: npm install && npx playwright install --with-deps
+    buildCommand: npm install
     startCommand: node ultimate-master-engine.js
