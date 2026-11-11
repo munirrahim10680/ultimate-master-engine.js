@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: century-engine
+    env: node
+    plan: free
+    buildCommand: npm install && npx playwright install --with-deps
+    startCommand: node ultimate-master-engine.js
