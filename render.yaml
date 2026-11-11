@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: century-engine
+    name: century-engine-bot
     env: node
     plan: free
     buildCommand: npm install && npx playwright install --with-deps
