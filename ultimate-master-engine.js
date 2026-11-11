@@ -111,7 +111,7 @@ async function executeEnterpriseNode(config) {
   try {
     const pages = context.pages();
     const page = pages.length > 0 ? pages[0] : await context.newPage();
-    await context.setViewportSize({ width: 1920, height: 1080 });
+    
 
     await page.addInitScript(function(p) {
       Object.defineProperty(navigator, 'platform', { get: function() { return p.platform; } });
