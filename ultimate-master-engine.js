@@ -35,6 +35,25 @@ async function incubateSyntheticPersona(context) {
     await page.close();
   }
 }
+async function triggerVideoPlayback(page) {
+  try {
+    await page.evaluate(() => {
+      // فیس بک ویڈیوز کے لیے تمام ویڈیو ایلیمنٹس اور پلے بٹنز کو ہٹ کرنا
+      const videos = document.querySelectorAll('video');
+      videos.forEach((v) => {
+        v.muted = false;
+        v.volume = 1.0;
+        v.play().catch(() => {});
+      });
+
+      // فیس بک کے مخصوص پلے بٹنز اور کلک ایبل ایریاز
+      const fbPlayButtons = document.querySelectorAll('[aria-label="Play"], [aria-label*="Sبscribed"], div[role="button"][aria-label*="Play"], video');
+      fbPlayButtons.forEach((btn) => {
+        try { btn.click(); } catch(e) {}
+      });
+    });
+  } catch (e) {}
+}
 
 async function triggerVideoPlayback(page) {
   try {
