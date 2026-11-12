@@ -62,26 +62,22 @@ async function triggerVideoPlayback(page) {
       videos.forEach((v) => {
         v.muted = false;
         v.volume = 1.0;
-        v.play().catch(() => {});
-      });
-
-      const playButtons = document.querySelectorAll('.ytp-play-button, button[aria-label*="Play"], .play-button, [data-testid="play-button"]');
-      playButtons.forEach((btn) => btn.click());
-    });
-  } catch (e) {}
-}
-
-async function simulateNeuromorphicTremor(page, profile) {
-  const fatigueMultiplier = profile === 'relaxed' ? 1.4 : profile === 'analytical' ? 1.8 : 0.8;
-  const baseDelay = Math.floor(Math.random() * 1200) + 600;
-
-  for (let i = 0; i < 2; i++) {
-    const jitterX = (Math.random() - 0.5) * 12;
-    const jitterY = (Math.random() - 0.5) * 12;
-    await page.mouse.move(150 + jitterX, 250 + jitterY, { steps: 5 });
-    await new Promise((r) => setTimeout(r, baseDelay * fatigueMultiplier));
-  }
-}
+          const launchOptions = {
+    headless: true,
+    args: [
+      '--disable-blink-features=AutomationControlled',
+      '--disable-features=IsolateOrigins,site-per-process,AudioServiceOutOfProcess,TranslateUI,MediaRouter',
+      '--disable-infobars',
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage', // ریم کی بچت کے لیے سب سے اہم
+      '--disable-accelerated-2d-canvas',
+      '--disable-gpu',
+      '--single-process', // ریم کے استعمال کو کم ترین سطح پر لانے کے لیے
+      '--no-zygote',
+      '--window-size=' + (1280 + Math.floor(Math.random() * 40)) + ',' + (720 + Math.floor(Math.random() * 20))
+    ]
+  };
 
 async function executeEnterpriseNode(config) {
   const taskId = config.taskId;
