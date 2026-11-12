@@ -1,12 +1,11 @@
 # syntax = docker/dockerfile:1
 
-# Adjust NODE_VERSION as desired
 ARG NODE_VERSION=22.21.1
 FROM node:${NODE_VERSION}-slim AS base
 
 LABEL fly_launch_runtime="Node.js"
 
-# Install Playwright system dependencies and required libraries
+# Install Playwright system dependencies
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y \
     build-essential node-gyp pkg-config python3 \
@@ -16,34 +15,26 @@ RUN apt-get update -qq && \
     libx11-xcb1 libxcb-dri3-0 libxshmfence1 libglib2.0-0 libnspr4 \
     libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libstdc++6
 
-# Node.js app lives here
 WORKDIR /app
-
-# Set production environment
 ENV NODE_ENV="production"
 
-# Throw-away build stage to reduce size of final image
 FROM base AS build
 
-# Install packages needed to build node modules
 RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential node-gyp pkg-config python3
 
-# Install node modules
 COPY package.json ./
 RUN npm install
 
-# Copy application code
+# Explicitly install Playwright chromium browser during build
+RUN npx playwright install chromium
+
 COPY . .
 
-# Final stage for app image
 FROM base
 
-# Copy built application
 COPY --from=build /app /app
 
-# Expose port 8080 to match Fly.io health check and code
 EXPOSE 8080
 
-# Start the server by default
 CMD [ "npm", "start" ]
