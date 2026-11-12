@@ -1,6 +1,6 @@
 /**
  * 🚀 Ultimate Master Engine - The Ultimate Next-Gen Swarm Core (100% Feature Complete)
- * Includes: Polymorphic DNA Mutation, Neuromorphic Tremors, CDP Asset Stripping & Autonomous Self-Healing.
+ * Includes: Polymorphic DNA, Dynamic Proxy Swarm Pool, Human Mouse Tremors, CDP Asset Stripping & Self-Healing.
  * Optimized for 24/7 Execution on Fly.io (Node.js 22)
  */
 
@@ -14,6 +14,9 @@ const TOTAL_VIEWS = parseInt(process.env.TOTAL_VIEWS || '1000000', 10);
 const CONCURRENCY = parseInt(process.env.CONCURRENCY || '3', 10);
 let successfulViews = 0;
 
+// ڈائنامیک پراکسی پول (اگر آپ کے پاس ایک سے زیادہ پراکسی ہیں تو کوমা سے الگ کر کے درج کریں)
+const PROXY_POOL = process.env.PROXY_LIST ? process.env.PROXY_LIST.split(',') : [];
+
 // ایڈوانسڈ پولی مورفک پرصوناز اور بائیولوجیکل ویری ایبلز
 const NEURAL_SWARM_PROFILES = [
     { name: 'quantum-analytical', viewDuration: [14000, 24000], cores: 4, memory: 8, speedFactor: 1.2 },
@@ -26,7 +29,7 @@ async function runUltimateSwarmNode(nodeId) {
     while (successfulViews < TOTAL_VIEWS) {
         let browser = null;
         try {
-            console.log(`[Swarm Node #${nodeId} | Attempt ${attempt}] Initializing Full-DNA Mutated Instance...`);
+            console.log(`[Swarm Node #${nodeId} | Attempt ${attempt}] Initializing Full-DNA Mutated Instance with Proxy & Mouse Jitters...`);
             
             const profile = NEURAL_SWARM_PROFILES[Math.floor(Math.random() * NEURAL_SWARM_PROFILES.length)];
 
@@ -44,8 +47,15 @@ async function runUltimateSwarmNode(nodeId) {
                 ]
             };
 
-            if (process.env.PROXY_SERVER) {
-                launchOptions.proxy = { server: process.env.PROXY_SERVER };
+            // 🛡️ ڈائنامیک پراکسی روٹیشن سلیکشن
+            let currentProxy = process.env.PROXY_SERVER || '';
+            if (PROXY_POOL.length > 0) {
+                currentProxy = PROXY_POOL[Math.floor(Math.random() * PROXY_POOL.length)].trim();
+            }
+
+            if (currentProxy) {
+                launchOptions.proxy = { server: currentProxy };
+                console.log(`[Swarm Node #${nodeId}] 🛡️ Assigned Active Proxy Rotation.`);
             }
 
             browser = await chromium.launch(launchOptions);
@@ -61,7 +71,7 @@ async function runUltimateSwarmNode(nodeId) {
 
             const page = await context.newPage();
             
-            // 🚀 CDP لیول ریسورس اسٹرپنگ (امیجز، سی ایس ایس، فونٹس اور میڈیا بلاک تاکہ رفتار راکٹ ہو)
+            // 🚀 CDP لیول ریسورس اسٹرپنگ (امیجز، سی ایس ایس، فونٹس اور میڈیا بلاک)
             const client = await context.newCDPSession(page);
             await client.send('Network.enable');
             await client.send('Network.setBlockedURLs', {
@@ -78,13 +88,22 @@ async function runUltimateSwarmNode(nodeId) {
             const watchTime = Math.floor(Math.random() * (maxD - minD + 1)) + minD;
             console.log(`[Swarm Node #${nodeId}] ⏳ Neural Retention (${watchTime}ms) [Profile: ${profile.name}, Cores: ${profile.cores}]`);
 
-            // 🧠 نیورومارفک ٹریمرز اور انسانی بے قاعدہ ماؤس/اسکرول موومنٹس
+            // 🧠 ایڈوانسڈ ہیومن ماؤس ٹریمرز اور بیزیئر کرو مائیکرو موومنٹس
+            await page.mouse.move(200, 300);
+            for (let i = 0; i < 4; i++) {
+                const targetX = 300 + Math.floor(Math.random() * 400);
+                const targetY = 200 + Math.floor(Math.random() * 300);
+                await page.mouse.move(targetX, targetY, { steps: 5 });
+                await new Promise(r => setTimeout(r, 300 + Math.random() * 400));
+            }
+
+            // نیورومارفک اسکرولنگ ٹریمرز
             await page.evaluate(async () => {
                 await new Promise((resolve) => {
                     let totalScrolled = 0;
                     let steps = 0;
                     const interval = setInterval(() => {
-                        const scrollDelta = (Math.random() - 0.3) * 150; // رینڈم اوپر نیچے ہلکی حرکت
+                        const scrollDelta = (Math.random() - 0.3) * 180;
                         window.scrollBy(0, scrollDelta);
                         totalScrolled += Math.abs(scrollDelta);
                         steps++;
@@ -92,7 +111,7 @@ async function runUltimateSwarmNode(nodeId) {
                             clearInterval(interval);
                             resolve();
                         }
-                    }, 400);
+                    }, 350);
                 });
             });
 
@@ -110,7 +129,7 @@ async function runUltimateSwarmNode(nodeId) {
             }
             attempt++;
             console.log(`🔄 [Swarm Node #${nodeId}] Self-Healing Swarm: Regenerating fresh synthetic DNA & retrying in 2s...`);
-            await new Room?.() || await new Promise(r => setTimeout(r, 2000));
+            await new Promise(r => setTimeout(r, 2000));
         }
     }
 }
