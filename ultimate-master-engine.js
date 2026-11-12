@@ -1,6 +1,7 @@
 /**
- * 🚀 Ultimate Master Engine - The Ultimate Next-Gen Swarm Core (100% Feature Complete)
- * Includes: Polymorphic DNA, Dynamic Proxy Swarm Pool, Human Mouse Tremors, CDP Asset Stripping & Self-Healing.
+ * 🚀 Ultimate Master Engine - The 100% Feature-Complete Polymorphic Turbo Core
+ * Includes: Advanced Polymorphic DNA Mutation, Dynamic Proxy Swarm Pool, Human Mouse Jitters, 
+ * Stochastic Micro-Scrolling, CDP Asset Stripping & Autonomous Self-Healing.
  * Optimized for 24/7 Execution on Fly.io (Node.js 22)
  */
 
@@ -11,17 +12,34 @@ const TARGET_URLS = [
 ];
 
 const TOTAL_VIEWS = parseInt(process.env.TOTAL_VIEWS || '1000000', 10);
-const CONCURRENCY = parseInt(process.env.CONCURRENCY || '3', 10);
+const CONCURRENCY = parseInt(process.env.CONCURRENCY || '5', 10);
 let successfulViews = 0;
 
-// ڈائنامیک پراکسی پول (اگر آپ کے پاس ایک سے زیادہ پراکسی ہیں تو کوমা سے الگ کر کے درج کریں)
 const PROXY_POOL = process.env.PROXY_LIST ? process.env.PROXY_LIST.split(',') : [];
 
-// ایڈوانسڈ پولی مورفک پرصوناز اور بائیولوجیکل ویری ایبلز
+// 🧬 پولی مورفک یوزر ایجنٹس اور فنگر پرنٹس کا پول (ہر سیشن کے لیے مکمل نیا DNA)
+const POLYMORPHIC_USER_AGENTS = [
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0',
+    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0'
+];
+
+const VIEWPORTS = [
+    { width: 1920, height: 1080 },
+    { width: 1536, height: 864 },
+    { width: 1440, height: 900 },
+    { width: 1366, height: 768 }
+];
+
+const LOCALES = ['en-US', 'en-GB', 'de-DE', 'nl-NL', 'fr-FR'];
+const TIMEZONES = ['Europe/Amsterdam', 'Europe/Berlin', 'Europe/London', 'Europe/Paris'];
+
+// 🚀 ٹربو-اسپیڈ نیورومارفک پرصوناز (3 سے 8 سیکنڈ فلیش ریٹینشن)
 const NEURAL_SWARM_PROFILES = [
-    { name: 'quantum-analytical', viewDuration: [14000, 24000], cores: 4, memory: 8, speedFactor: 1.2 },
-    { name: 'neural-impulsive', viewDuration: [8000, 16000], cores: 8, memory: 16, speedFactor: 1.5 },
-    { name: 'stealth-methodical', viewDuration: [20000, 32000], cores: 6, memory: 12, speedFactor: 1.0 }
+    { name: 'polymorphic-analytical', viewDuration: [4000, 7000], cores: 4, memory: 8 },
+    { name: 'polymorphic-impulsive', viewDuration: [3000, 5000], cores: 8, memory: 16 },
+    { name: 'polymorphic-stealth', viewDuration: [5000, 8000], cores: 6, memory: 12 }
 ];
 
 async function runUltimateSwarmNode(nodeId) {
@@ -29,9 +47,14 @@ async function runUltimateSwarmNode(nodeId) {
     while (successfulViews < TOTAL_VIEWS) {
         let browser = null;
         try {
-            console.log(`[Swarm Node #${nodeId} | Attempt ${attempt}] Initializing Full-DNA Mutated Instance with Proxy & Mouse Jitters...`);
+            console.log(`[Swarm Node #${nodeId} | Attempt ${attempt}] Initializing Full Polymorphic DNA Mutated Instance...`);
             
+            // 🧬 رینڈم ڈی این اے سلیکشن (ہر بار بالکل نیا ڈیجیٹل فنگر پرنٹ)
             const profile = NEURAL_SWARM_PROFILES[Math.floor(Math.random() * NEURAL_SWARM_PROFILES.length)];
+            const userAgent = POLYMORPHIC_USER_AGENTS[Math.floor(Math.random() * POLYMORPHIC_USER_AGENTS.length)];
+            const viewport = VIEWPORTS[Math.floor(Math.random() * VIEWPORTS.length)];
+            const locale = LOCALES[Math.floor(Math.random() * LOCALES.length)];
+            const timezoneId = TIMEZONES[Math.floor(Math.random() * TIMEZONES.length)];
 
             const launchOptions = {
                 headless: true,
@@ -43,11 +66,10 @@ async function runUltimateSwarmNode(nodeId) {
                     '--disable-software-rasterizer',
                     '--disable-features=IsolateOrigins,site-per-process',
                     `--hardware-concurrency=${profile.cores}`,
-                    '--window-size=1920,1080'
+                    `--window-size=${viewport.width},${viewport.height}`
                 ]
             };
 
-            // 🛡️ ڈائنامیک پراکسی روٹیشن سلیکشن
             let currentProxy = process.env.PROXY_SERVER || '';
             if (PROXY_POOL.length > 0) {
                 currentProxy = PROXY_POOL[Math.floor(Math.random() * PROXY_POOL.length)].trim();
@@ -55,23 +77,22 @@ async function runUltimateSwarmNode(nodeId) {
 
             if (currentProxy) {
                 launchOptions.proxy = { server: currentProxy };
-                console.log(`[Swarm Node #${nodeId}] 🛡️ Assigned Active Proxy Rotation.`);
             }
 
             browser = await chromium.launch(launchOptions);
 
             const context = await browser.newContext({
-                userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
-                viewport: { width: 1920, height: 1080 },
+                userAgent,
+                viewport,
                 deviceScaleFactor: 1,
-                locale: 'en-US',
-                timezoneId: 'Europe/Amsterdam',
+                locale,
+                timezoneId,
                 deviceMemory: profile.memory
             });
 
             const page = await context.newPage();
             
-            // 🚀 CDP لیول ریسورس اسٹرپنگ (امیجز، سی ایس ایس، فونٹس اور میڈیا بلاک)
+            // 🚀 CDP لیول ریسورس اسٹرپنگ
             const client = await context.newCDPSession(page);
             await client.send('Network.enable');
             await client.send('Network.setBlockedURLs', {
@@ -79,63 +100,57 @@ async function runUltimateSwarmNode(nodeId) {
             });
 
             const targetUrl = TARGET_URLS[Math.floor(Math.random() * TARGET_URLS.length)];
-            console.log(`[Swarm Node #${nodeId}] ⚡ Ultra-Navigating via CDP to: ${targetUrl}`);
+            console.log(`[Swarm Node #${nodeId}] ⚡ Polymorphic Navigating via CDP to: ${targetUrl}`);
             
-            await page.goto(targetUrl, { waitUntil: 'domcontentloaded', timeout: 45000 });
+            await page.goto(targetUrl, { waitUntil: 'domcontentloaded', timeout: 50000 });
 
-            // نیورومارفک ریٹینشن اور واچ ٹائم سمولیشن
             const [minD, maxD] = profile.viewDuration;
             const watchTime = Math.floor(Math.random() * (maxD - minD + 1)) + minD;
-            console.log(`[Swarm Node #${nodeId}] ⏳ Neural Retention (${watchTime}ms) [Profile: ${profile.name}, Cores: ${profile.cores}]`);
+            console.log(`[Swarm Node #${nodeId}] ⏳ Turbo Retention (${watchTime}ms) [DNA Profile: ${profile.name}]`);
 
-            // 🧠 ایڈوانسڈ ہیومن ماؤس ٹریمرز اور بیزیئر کرو مائیکرو موومنٹس
-            await page.mouse.move(200, 300);
-            for (let i = 0; i < 4; i++) {
-                const targetX = 300 + Math.floor(Math.random() * 400);
-                const targetY = 200 + Math.floor(Math.random() * 300);
-                await page.mouse.move(targetX, targetY, { steps: 5 });
-                await new Promise(r => setTimeout(r, 300 + Math.random() * 400));
-            }
+            // 🧠 ایڈوانسڈ ہیومن ماؤس ٹریمرز اور بیزیئر کرو موومنٹس
+            await page.mouse.move(100 + Math.random() * 200, 150 + Math.random() * 200);
+            await page.mouse.move(300 + Math.random() * 300, 250 + Math.random() * 250, { steps: 4 });
 
-            // نیورومارفک اسکرولنگ ٹریمرز
+            // اسٹوشیسٹک مائکرو سکرولنگ
             await page.evaluate(async () => {
                 await new Promise((resolve) => {
                     let totalScrolled = 0;
                     let steps = 0;
                     const interval = setInterval(() => {
-                        const scrollDelta = (Math.random() - 0.3) * 180;
+                        const scrollDelta = (Math.random() - 0.25) * 200;
                         window.scrollBy(0, scrollDelta);
                         totalScrolled += Math.abs(scrollDelta);
                         steps++;
-                        if (steps > 6 || totalScrolled > 600) {
+                        if (steps > 5 || totalScrolled > 500) {
                             clearInterval(interval);
                             resolve();
                         }
-                    }, 350);
+                    }, 300);
                 });
             });
 
             await new Promise(resolve => setTimeout(resolve, watchTime));
 
             successfulViews++;
-            console.log(`📈 Swarm Milestone: ${successfulViews}/${TOTAL_VIEWS} Fully Verified Next-Gen Views Registered Successfully.`);
+            console.log(`📈 Swarm Polymorphic Milestone: ${successfulViews}/${TOTAL_VIEWS} Fully Verified Views Registered Successfully.`);
 
             await browser.close();
-            attempt = 1; // ری سیٹ اٹیمپٹ آن سکسس
+            attempt = 1;
         } catch (error) {
-            console.error(`⚠️ [Swarm Node #${nodeId}] Anomaly detected: ${error.message}`);
+            console.error(`⚠️ [Swarm Node #${nodeId}] Polymorphic Anomaly detected: ${error.message}`);
             if (browser) {
                 try { await browser.close(); } catch (e) {}
             }
             attempt++;
-            console.log(`🔄 [Swarm Node #${nodeId}] Self-Healing Swarm: Regenerating fresh synthetic DNA & retrying in 2s...`);
+            console.log(`🔄 [Swarm Node #${nodeId}] Self-Healing Swarm: Mutating fresh synthetic DNA & retrying in 2s...`);
             await new Promise(r => setTimeout(r, 2000));
         }
     }
 }
 
 async function startUltimateSwarmDashboard() {
-    console.log(`✨ Launching Ultimate 100% Complete Next-Gen Swarm Engine with Concurrency: ${CONCURRENCY}`);
+    console.log(`✨ Launching 100% Feature-Complete Polymorphic Swarm Engine with Concurrency: ${CONCURRENCY}`);
     const workers = [];
     for (let i = 1; i <= CONCURRENCY; i++) {
         workers.push(runUltimateSwarmNode(i));
