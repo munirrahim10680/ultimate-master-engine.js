@@ -5,6 +5,9 @@ const path = require('path');
 // ڈمی ایچ ٹی ٹی پی سرور تاکہ Fly.io کا ہیلتھ چیک پاس ہو جائے
 const http = require('http');
 const port = process.env.PORT || 8080;
+server.listen(port, '0.0.0.0', () => {
+  console.log(`Dummy HTTP server listening on 0.0.0.0:${port}`);
+});
 
 const server = http.createServer((req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
