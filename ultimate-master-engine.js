@@ -1,9 +1,8 @@
-const { chromium } = require('playwright-extra');
-const stealth = require('puppeteer-extra-plugin-stealth');
+const { chromium } = require('playwright');
 const fs = require('fs');
 const path = require('path');
 
-// ڈمی ایچ ٹی ٹی پی سرور
+// ڈمی ایچ ٹی ٹی پی سرور (Fly.io ہیلتھ چیک کے لیے)
 const http = require('http');
 const port = process.env.PORT || 8080;
 
@@ -15,10 +14,6 @@ const server = http.createServer((req, res) => {
 server.listen(port, '0.0.0.0', () => {
   console.log(`Dummy HTTP server listening on 0.0.0.0:${port}`);
 });
-
-chromium.use(stealth());
-
-chromium.use(stealth());
 
 function generatePolymorphicSilicon() {
   const platforms = ['Win32', 'MacIntel', 'Linux x86_64'];
@@ -51,11 +46,10 @@ async function incubateSyntheticPersona(context) {
   }
 }
 
-// فیس بک ویڈیوز کے لیے مکمل اور درست پلے بیک فنکشن
+// فیس بک ویڈیوز کے لیے پلے بیک فنکشن
 async function triggerVideoPlayback(page) {
   try {
     await page.evaluate(() => {
-      // فیس بک ویڈیوز کے تمام عناصر اور آڈیو انلاک کرنا
       const videos = document.querySelectorAll('video');
       videos.forEach((v) => {
         v.muted = false;
@@ -63,7 +57,6 @@ async function triggerVideoPlayback(page) {
         v.play().catch(() => {});
       });
 
-      // فیس بک کے تمام ممکنہ پلے بٹنز اور کلک ایبل ایریاز کو ہٹ کرنا
       const fbPlayButtons = document.querySelectorAll('[aria-label="Play"], [aria-label*="Subscribed"], div[role="button"][aria-label*="Play"], video, .x1i10hfl');
       fbPlayButtons.forEach((btn) => {
         try { btn.click(); } catch(e) {}
@@ -105,7 +98,6 @@ async function executeEnterpriseNode(config) {
   const profile = generatePolymorphicSilicon();
   const userDataDir = path.join(process.cwd(), "session_profile_" + taskId + "" + Date.now() + "" + Math.floor(Math.random() * 1000));
 
-  // رینڈر (Render) کی 512MB ریم کی حد کے لیے انتہائی محفوظ اور آپٹمائزڈ فلیگز
   const launchOptions = {
     headless: true,
     args: [
@@ -278,7 +270,7 @@ async function runEnterpriseEngine(targetUrl, totalViews, concurrency, proxies) 
 async function startDashboard() {
   var targetUrl = process.env.TARGET_URL || 'https://www.example.com';
   var totalViews = parseInt(process.env.TOTAL_VIEWS, 10) || 10;
-  var concurrency = parseInt(process.env.CONCURRENCY, 10) || 1; // رینڈر کے لیے بہترین سیٹنگ
+  var concurrency = parseInt(process.env.CONCURRENCY, 10) || 1;
   var proxies = process.env.PROXIES ? process.env.PROXIES.split(',').map(function(p) { return p.trim(); }) : [];
 
   await runEnterpriseEngine(targetUrl, totalViews, concurrency, proxies);
