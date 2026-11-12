@@ -17,6 +17,7 @@ RUN apt-get update -qq && \
 
 WORKDIR /app
 ENV NODE_ENV="production"
+ENV PLAYWRIGHT_BROWSERS_PATH="0"
 
 FROM base AS build
 
