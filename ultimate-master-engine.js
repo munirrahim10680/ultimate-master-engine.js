@@ -35,10 +35,12 @@ async function incubateSyntheticPersona(context) {
     await page.close();
   }
 }
+
+// فیس بک ویڈیوز کے لیے مکمل اور درست پلے بیک فنکشن
 async function triggerVideoPlayback(page) {
   try {
     await page.evaluate(() => {
-      // فیس بک ویڈیوز کے لیے تمام ویڈیو ایلیمنٹس اور پلے بٹنز کو ہٹ کرنا
+      // فیس بک ویڈیوز کے تمام عناصر اور آڈیو انلاک کرنا
       const videos = document.querySelectorAll('video');
       videos.forEach((v) => {
         v.muted = false;
@@ -46,8 +48,8 @@ async function triggerVideoPlayback(page) {
         v.play().catch(() => {});
       });
 
-      // فیس بک کے مخصوص پلے بٹنز اور کلک ایبل ایریاز
-      const fbPlayButtons = document.querySelectorAll('[aria-label="Play"], [aria-label*="Sبscribed"], div[role="button"][aria-label*="Play"], video');
+      // فیس بک کے تمام ممکنہ پلے بٹنز اور کلک ایبل ایریاز کو ہٹ کرنا
+      const fbPlayButtons = document.querySelectorAll('[aria-label="Play"], [aria-label*="Subscribed"], div[role="button"][aria-label*="Play"], video, .x1i10hfl');
       fbPlayButtons.forEach((btn) => {
         try { btn.click(); } catch(e) {}
       });
@@ -55,29 +57,17 @@ async function triggerVideoPlayback(page) {
   } catch (e) {}
 }
 
-async function triggerVideoPlayback(page) {
-  try {
-    await page.evaluate(() => {
-      const videos = document.querySelectorAll('video');
-      videos.forEach((v) => {
-        v.muted = false;
-        v.volume = 1.0;
-          const launchOptions = {
-    headless: true,
-    args: [
-      '--disable-blink-features=AutomationControlled',
-      '--disable-features=IsolateOrigins,site-per-process,AudioServiceOutOfProcess,TranslateUI,MediaRouter',
-      '--disable-infobars',
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage', // ریم کی بچت کے لیے سب سے اہم
-      '--disable-accelerated-2d-canvas',
-      '--disable-gpu',
-      '--single-process', // ریم کے استعمال کو کم ترین سطح پر لانے کے لیے
-      '--no-zygote',
-      '--window-size=' + (1280 + Math.floor(Math.random() * 40)) + ',' + (720 + Math.floor(Math.random() * 20))
-    ]
-  };
+async function simulateNeuromorphicTremor(page, profile) {
+  const fatigueMultiplier = profile === 'relaxed' ? 1.4 : profile === 'analytical' ? 1.8 : 0.8;
+  const baseDelay = Math.floor(Math.random() * 1200) + 600;
+
+  for (let i = 0; i < 2; i++) {
+    const jitterX = (Math.random() - 0.5) * 12;
+    const jitterY = (Math.random() - 0.5) * 12;
+    await page.mouse.move(150 + jitterX, 250 + jitterY, { steps: 5 });
+    await new Promise((r) => setTimeout(r, baseDelay * fatigueMultiplier));
+  }
+}
 
 async function executeEnterpriseNode(config) {
   const taskId = config.taskId;
@@ -100,6 +90,7 @@ async function executeEnterpriseNode(config) {
   const profile = generatePolymorphicSilicon();
   const userDataDir = path.join(process.cwd(), "session_profile_" + taskId + "" + Date.now() + "" + Math.floor(Math.random() * 1000));
 
+  // رینڈر (Render) کی 512MB ریم کی حد کے لیے انتہائی محفوظ اور آپٹمائزڈ فلیگز
   const launchOptions = {
     headless: true,
     args: [
@@ -109,10 +100,14 @@ async function executeEnterpriseNode(config) {
       '--no-sandbox',
       '--disable-setuid-sandbox',
       '--disable-dev-shm-usage',
+      '--disable-accelerated-2d-canvas',
+      '--disable-gpu',
+      '--single-process',
+      '--no-zygote',
       '--force-webrtc-ip-handling-policy=disable_non_proxied_udp',
       '--disable-webrtc-hw-decoding',
       '--disable-webrtc-hw-encoding',
-      '--window-size=' + (1920 + Math.floor(Math.random() * 40)) + ',' + (1080 + Math.floor(Math.random() * 20))
+      '--window-size=' + (1280 + Math.floor(Math.random() * 40)) + ',' + (720 + Math.floor(Math.random() * 20))
     ]
   };
 
@@ -127,7 +122,6 @@ async function executeEnterpriseNode(config) {
     const pages = context.pages();
     const page = pages.length > 0 ? pages[0] : await context.newPage();
     
-
     await page.addInitScript(function(p) {
       Object.defineProperty(navigator, 'platform', { get: function() { return p.platform; } });
       Object.defineProperty(navigator, 'hardwareConcurrency', { get: function() { return p.hardwareConcurrency; } });
@@ -269,7 +263,7 @@ async function runEnterpriseEngine(targetUrl, totalViews, concurrency, proxies) 
 async function startDashboard() {
   var targetUrl = process.env.TARGET_URL || 'https://www.example.com';
   var totalViews = parseInt(process.env.TOTAL_VIEWS, 10) || 10;
-  var concurrency = parseInt(process.env.CONCURRENCY, 10) || 3;
+  var concurrency = parseInt(process.env.CONCURRENCY, 10) || 1; // رینڈر کے لیے بہترین سیٹنگ
   var proxies = process.env.PROXIES ? process.env.PROXIES.split(',').map(function(p) { return p.trim(); }) : [];
 
   await runEnterpriseEngine(targetUrl, totalViews, concurrency, proxies);
