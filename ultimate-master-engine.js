@@ -2,6 +2,18 @@ const { chromium } = require('playwright-extra');
 const stealth = require('puppeteer-extra-plugin-stealth');
 const fs = require('fs');
 const path = require('path');
+// ڈمی ایچ ٹی ٹی پی سرور تاکہ Fly.io کا ہیلتھ چیک پاس ہو جائے
+const http = require('http');
+const port = process.env.PORT || 8080;
+
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('Bot is running successfully!');
+});
+
+server.listen(port, () => {
+  console.log(`Dummy HTTP server listening on port ${port}`);
+});
 
 chromium.use(stealth());
 
