@@ -2,13 +2,13 @@ name: Facebook View Swarm - 1M Target
 
 on:
   schedule:
-    - cron: '0 */3 * * *' # ہر 3 گھنٹے بعد خود بخود رن ہوگا
-  workflow_dispatch: # مینول چلانے کے لیے
+    - cron: '0 */3 * * *'
+  workflow_dispatch:
 
 jobs:
   run-swarm:
     runs-on: ubuntu-latest
-    timeout-minutes: 360 # زیادہ سے زیادہ وقت بڑھا کر 6 گھنٹے (360 منٹ) کر دیا گیا ہے
+    timeout-minutes: 360
 
     steps:
       - name: Checkout Code
@@ -26,6 +26,6 @@ jobs:
 
       - name: Run Swarm Engine for 100k
         env:
-          CONCURRENCY: 8        # 7 GB ریم کے حساب سے کنکرنسی زیادہ رکھی جا سکتی ہے
-          TOTAL_VIEWS: 100000   # ہدف کو ایک لاکھ کر دیا گیا ہے
+          CONCURRENCY: 8        
+          TOTAL_VIEWS: 100000   
         run: node ultimate-master-engine.js
