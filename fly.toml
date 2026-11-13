@@ -1,6 +1,6 @@
-# fly.toml app configuration file generated for ultimate-master-engine-js on 2026-11-12T06:50:52Z
+# fly.toml app configuration file generated for ultimate-master-engine-js on 2026-11-13T05:13:48Z
 #
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+# See https://docs.fly.io/reference/configuration for information about how to use this file.
 #
 
 app = 'ultimate-master-engine-js'
@@ -16,3 +16,7 @@ primary_region = 'ams'
   cpu_kind = 'shared'
   cpus = 1
   memory_mb = 2048
+
+[[restart]]
+  policy = 'on-failure'
+  processes = ['app']
