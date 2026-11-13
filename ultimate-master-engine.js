@@ -92,17 +92,18 @@ async function runUltimateSwarmNode(nodeId) {
 
             const page = await context.newPage();
             
-            // 🚀 CDP لیول ریسورس اسٹرپنگ
+            // 🚀 اصلاح شدہ CDP لیول ریسورس اسٹرپنگ (صرف اشتہارات اور ہیوی میڈیا بلاک، CSS کو کھلا رکھا گیا ہے تاکہ پیج اٹکے نہیں)
             const client = await context.newCDPSession(page);
             await client.send('Network.enable');
             await client.send('Network.setBlockedURLs', {
-                urls: ["*.png", "*.jpg", "*.jpeg", "*.gif", "*.css", "*.svg", "*.woff", "*.woff2", "*.ico", "*.webp"]
+                urls: ["*.png", "*.jpg", "*.jpeg", "*.gif", "*.svg", "*.ico", "*.webp", "*/ads/*", "*/analytics/*"]
             });
 
             const targetUrl = TARGET_URLS[Math.floor(Math.random() * TARGET_URLS.length)];
             console.log(`[Swarm Node #${nodeId}] ⚡ Polymorphic Navigating via CDP to: ${targetUrl}`);
             
-            await page.goto(targetUrl, { waitUntil: 'domcontentloaded', timeout: 50000 });
+            // ٹائم آؤٹ بڑھا کر 60 سیکنڈ اور ویٹنگ کنڈیشن کو مستحکم کر دیا گیا ہے
+            await page.goto(targetUrl, { waitUntil: 'load', timeout: 60000 });
 
             const [minD, maxD] = profile.viewDuration;
             const watchTime = Math.floor(Math.random() * (maxD - minD + 1)) + minD;
