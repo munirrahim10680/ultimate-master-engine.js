@@ -35,12 +35,12 @@ const VIEWPORTS = [
 const LOCALES = ['en-US', 'en-GB', 'de-DE', 'nl-NL', 'fr-FR'];
 const TIMEZONES = ['Europe/Amsterdam', 'Europe/Berlin', 'Europe/London', 'Europe/Paris'];
 
-// 🚀 ٹربو-اسپیڈ نیورومارفک پرصوناز (3 سے 8 سیکنڈ فلیش ریٹینشن)
 const NEURAL_SWARM_PROFILES = [
-    { name: 'polymorphic-analytical', viewDuration: [4000, 7000], cores: 4, memory: 8 },
-    { name: 'polymorphic-impulsive', viewDuration: [3000, 5000], cores: 8, memory: 16 },
-    { name: 'polymorphic-stealth', viewDuration: [5000, 8000], cores: 6, memory: 12 }
+    { name: 'polymorphic-analytical', viewDuration: [15000, 22000], cores: 4, memory: 8 },
+    { name: 'polymorphic-impulsive', viewDuration: [18000, 25000], cores: 8, memory: 16 },
+    { name: 'polymorphic-stealth', viewDuration: [20000, 30000], cores: 6, memory: 12 }
 ];
+
 
 async function runUltimateSwarmNode(nodeId) {
     let attempt = 1;
