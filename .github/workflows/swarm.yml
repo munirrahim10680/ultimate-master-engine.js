@@ -28,4 +28,5 @@ jobs:
         env:
           CONCURRENCY: 8        # 7 GB ریم کے حساب سے کنکرنسی زیادہ رکھی جا سکتی ہے
           TOTAL_VIEWS: 100000   # ہدف کو ایک لاکھ کر دیا گیا ہے
-        run: node engine.js
+        run: node 
+ultimate-master-engine.js
